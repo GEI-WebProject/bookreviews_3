@@ -1,0 +1,35 @@
+{% load static %}
+<div style="display: flex; flex-direction: column;">
+    <div class="book-entry">
+        {% if detailed %}
+            <img src="{{ author.picture }}" class="book-cover">
+        {% else %}
+            <a href="{% url 'author_detail' author.id %}">
+                <img src="{{ author.picture }}" class="book-cover">
+            </a>
+        {% endif %}
+        <div class="book-details">
+            <div class="book-title">
+                <p><a href="{% url 'author_detail' author.id %}">{{ author.name }}</a></p>
+            </div>
+            <div class="book-properties">
+                <p><b>Birth date: </b>: {{ author.birth_date }}</p>
+                <p><a href="{% url 'author_books' author.id %}">Books by {{ author.name }}</a></p>
+            </div>
+            <div class="book-synopsis">
+                {% if detailed %}
+                    {% autoescape off %}
+                        <p>{{ author.bio|linebreaksbr }}</p>
+                    {% endautoescape %}
+                {% else %}
+                    {% autoescape off %}
+                        <p>{{ author.bio|linebreaksbr|truncatewords:100 }}
+                        <a href="{% url 'author_detail' author.id %}">Read more</a>
+                        </p>
+                    {% endautoescape %}
+                {% endif %}
+            </div>
+            <div class="clear"></div>   <!-- Clear float -->
+        </div>
+    </div>
+</div>

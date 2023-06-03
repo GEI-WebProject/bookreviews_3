@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    Reviews
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+
+{% block content %}
+    <h2>My Reviews</h2>
+    {% for review in reviews %}
+        {% include 'reviews/review_entry.html' %}
+    {% endfor %}
+{% endblock content %}

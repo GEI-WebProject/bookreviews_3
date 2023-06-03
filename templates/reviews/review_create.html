@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ review.title }}
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+    <h1>Create your review</h1>
+    {% include 'reviews/review_form.html' with label="Create" %}
+{% endblock content %}

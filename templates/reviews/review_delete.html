@@ -1,0 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="confirm-delete-modal-{{ review.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="confirm-delete-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="confirm-delete-modal-label">Delete a review</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this review?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="{% url 'review_delete' book_id=review.book.id pk=review.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary" name="confirm_delete_review_button">Yes, I am!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

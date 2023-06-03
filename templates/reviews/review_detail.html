@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ review.title }}
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+    <h2>Review for <a href="{% url 'book_detail' review.book.id %}">{{ review.book.title }}</a></h2>
+    <div>
+    {% include 'reviews/review_entry.html' %}
+    </div>
+{% endblock content %}

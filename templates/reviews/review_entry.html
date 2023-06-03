@@ -1,0 +1,42 @@
+<div class="card my-3 px-0 w-100" name="review_card">
+    <h6 class="card-header" name="review_user">
+        {{ review.user.username }}
+    </h6>
+    <div class="card-body">
+        <h5 class="card-title mb-3">
+            <a href="{% url 'review_detail' review.id %}" name="review_title">{{ review.title }}</a>
+        </h5>
+
+        <!-- Rating with stars, using rateYo js -->
+        <div class="rateyo-read-only mb-3" data-rateyo-rating="{{ review.rating }}"></div>
+        
+        <!-- Review body -->
+        <p class="card-text" name="review_body">
+            {% autoescape off %}
+                {{ review.body | linebreaksbr | truncatewords:50 }}
+            {% endautoescape %}
+        </p>
+        <br>
+
+        <!-- Bottom line with date and edit/delete buttons -->
+        <div class="row align-items-end"">
+            {% if review.user == user %}
+                <div class="col" name="own_review_section">
+                    <a href="{% url 'review_update' book_id=review.book.id pk=review.pk %}" class="btn btn-primary" name="update_review_button">
+                        Edit
+                    </a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal-{{ review.id }}" name="delete_review_button">
+                        Delete
+                    </button>
+                    {% include 'reviews/review_delete.html'%}
+                </div>
+            {% endif %}
+            <div class="col">
+                <p class="card-text text-end">
+                    <small class="text-muted">{{ review.created_at }} (Last update: {{review.updated_at }})</small>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>

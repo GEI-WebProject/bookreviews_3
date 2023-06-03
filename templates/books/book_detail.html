@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ book.title }}
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/book_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/review.css' %}">
+{% endblock head %}
+
+{% block content %}
+<!-- Book Information -->
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="book-info">
+            {% include 'books/book_entry.html' with detailed=True %}
+        </div>
+    </div>
+
+    <!-- Book Reviews -->
+    <div class="row">
+        <div class="book-reviews">
+            <h2>Latest Reviews</h2>
+
+            <p>
+                <h4 name="average_rating">Average Rating: {{ book.averageRating|stringformat:".1f" }}</h4>
+                <div class="rateyo-read-only" data-rateyo-rating="{{ book.averageRating }}"></div>
+            </p>
+
+            <!--Create a new review button-->
+            <a href="{% url 'review_create' book.id %}" class="btn btn-primary" name="create_review_button">
+                Create a new review
+            </a>
+
+            <!-- Show reviews -->
+            {% if book.reviews.all %}
+            {% for review in latest_reviews %}
+            {% include 'reviews/review_entry.html' %}
+            {% endfor %}
+
+            {% else %}
+            <p>No reviews yet!</p>
+            {% endif %}
+
+            <!-- Show more reviews -->
+            {% if book.reviews.count > num_reviews_shown %}
+            <a href="{% url 'book_reviews' book.id %}" name="more_reviews_link">See more reviews</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

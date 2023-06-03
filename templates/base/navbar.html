@@ -1,0 +1,42 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img src="{% static 'img/icon.svg' %}" alt="Icon" width="30" height="30" class="d-inline-block align-text-top">
+      <img src="{% static 'img/logo.svg' %}" alt="Logo" width="150" height="30" class="d-inline-block align-text-top">
+    </a>
+    <div class="collapse navbar-collapse justify-content-center" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'books' %}">Books</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'authors' %}">Authors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'reviews' %}">My Reviews</a>
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-center align-items-center flex-grow-1">
+      <div class="d-flex justify-content-center w-75">
+        <form class="d-flex w-100" method="get" action="{% url 'book_search' %}" name="search_form">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search Books" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+      <div class="d-flex justify-content-end w-100">
+        <span class="navbar-text" name="user_session">
+          {% if user.is_authenticated %}
+          Welcome, {{ user.username }}! |
+          <a href="{% url 'logout' %}">Log out</a>
+          {% else %}
+          You're not logged in |
+          <a href="{% url 'login' %}" name="login_link">Log In</a> |
+          <a href="{% url 'signup' %}" name="signup_link">Sign Up</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+</nav>

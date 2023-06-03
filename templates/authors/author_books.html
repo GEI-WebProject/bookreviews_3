@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock head %}
+
+{% block content %}
+    
+    <!-- List of books -->
+    <div class="recommended-books">
+        <p><h2>Books by {{ author.name }}</h2></p>
+        {% for book in page_obj %}
+            {% include 'books/book_entry.html' with detailed=False %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}

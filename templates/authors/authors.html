@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock head %}
+
+{% block content %}    
+    <!-- List of books -->
+    <div class="recommended-books">
+        <p><h2>Authors</h2></p>
+        {% for author in authors %}
+            {% include 'authors/author_entry.html' with detailed=False %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}

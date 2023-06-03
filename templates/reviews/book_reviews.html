@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ book.title }}'s Reviews
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+    <h2>
+        Reviews for <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+    </h2>
+
+    <!--Create a new review button-->
+    <a href="{% url 'review_create' book.id %}" class="btn btn-primary" name="create_review_button">
+        Create a new review
+    </a>
+
+    <p>
+        <h3 name="average_rating">Average Rating: {{ book.averageRating|stringformat:".1f" }}</h3> <span class="rateyo-read-only mb-3" data-rateyo-rating="{{ book.averageRating }}"></span>
+    </p>
+    
+    {% for review in reviews %}
+        {% include 'reviews/review_entry.html' %}
+    {% endfor %}
+{% endblock content %}

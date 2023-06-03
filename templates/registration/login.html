@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Log In</h2>
+        <div class="row my-5">
+            <div class="col-md-12">
+                <form method="post" class="form" name="login_form">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-primary" name="login_button">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

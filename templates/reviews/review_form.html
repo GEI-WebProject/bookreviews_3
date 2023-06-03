@@ -1,0 +1,28 @@
+<form class="row gy-5 mx-auto my-auto" method="post" id="id_review_form">
+  {% csrf_token %}
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">{{ form.title.label }}</label>
+        {{ form.title }}
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">{{ form.body.label }}</label>
+        {{ form.body }}
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">{{ form.rating.label }}</label>
+        <div class="rateyo-interactive"></div>
+        {{ form.rating }}
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <button class="btn btn-secondary" type="submit" name="submit_button">{{ label }}</button>
+      </div>
+  </div>
+</form>
