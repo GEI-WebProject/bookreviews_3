@@ -1,46 +1,73 @@
 <div class="book-entry">
     {% if detailed %}
-        <img src="{{ book.cover }}" class="book-cover">
+    <img property="image" src="{{ book.cover }}" class="book-cover" alt="{{ book.title }} front cover">
     {% else %}
-        <a href="{% url 'book_detail' book.id %}">
-            <img src="{{ book.cover }}" class="book-cover">
-        </a>
+    <a href="{% url 'book_detail' book.id %}">
+        <img src="{{ book.cover }}" class="book-cover" alt="{{ book.title }} front cover">
+    </a>
+    <span hidden property="image">{{ book.cover }}</span>
     {% endif %}
-    
+
     <div class="book-details">
         <div class="book-title">
-            <p><a href="{% url 'book_detail' book.id %}" name="title">{{ book.title }}</a></p>
+            <p>
+                <a href="{% url 'book_detail' book.id %}" name="title">
+                    {{ book.title }}
+                </a>
+                <span hidden property="name">{{ book.title }}</span>
+            </p>
         </div>
-        
+
         <div class="book-properties">
-            <p><b>Author</b>: 
+            <p>
+                <b>Author</b>:
                 {% for author in book.authors.all %}
-                <a href="{% url 'author_detail' author.id %}">{{ author.name }}</a>
+                <a property="author" typeof="Person" href="{% url 'author_detail' author.id %}">
+                    <span property="name">{{ author.name }}</span>
+                </a>
                 {% endfor %}
             </p>
-            <p><b>Genres</b>: {{ book.genres.all|join:", " }}</p>
-            <p><b>Language</b>: {{ book.language }}</p>
+            <p>
+                <b>Genres</b>:
+                <span property="genre">{{ book.genres.all|join:", " }}</span>
+            </p>
+            <p>
+                <b>Language</b>:
+                <span property="inLanguage">{{ book.language }}</span>
+            </p>
             {% if detailed %}
-                <p><b>ISBN</b>: {{ book.ISBN }}</p>
-                <p><b>Publishing</b>: {{ book.publisher }}</p>
-            {% endif %}
-        </div>
-        
-        
-        <div class="book-synopsis">
-            {% if detailed %}
-                {% autoescape off %}
-                    <p>{{ book.synopsis|linebreaksbr }}</p>
-                {% endautoescape %}
-            {% else %}
-                {% autoescape off %}
-                    <p>{{ book.synopsis|linebreaksbr|truncatewords:100 }}
-                    <a href="{% url 'book_detail' book.id %}">Read more</a>
-                    </p>
-                {% endautoescape %}
+            <p>
+                <b>ISBN</b>:
+                <span property="isbn">{{ book.ISBN }}</span>
+            </p>
+            <p>
+                <b>Publishing</b>:
+                <span property="publisher" typeof="Organization">
+                    <span property="name">{{ book.publisher }}</span>
+                </span>
+            </p>
             {% endif %}
         </div>
 
+
+        <div class="book-synopsis">
+            {% if detailed %}
+            {% autoescape off %}
+            <p property="description">
+                {{ book.synopsis|linebreaksbr }}
+            </p>
+            {% endautoescape %}
+            {% else %}
+            {% autoescape off %}
+            <p>
+                <span property="description">
+                    {{ book.synopsis|linebreaksbr|truncatewords:100 }}
+                </span>
+                <a href="{% url 'book_detail' book.id %}">Read more</a>
+            </p>
+            {% endautoescape %}
+            {% endif %}
+        </div>
     </div>
-    <div class="clear"></div>   <!-- Clear float -->
+    <div class="clear"></div> <!-- Clear float -->
 </div>
