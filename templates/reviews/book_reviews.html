@@ -2,15 +2,17 @@
 {% load static %}
 
 {% block title %}
-    {{ book.title }}'s Reviews
+{{ book.title }}'s Reviews
 {% endblock title %}
 
 {% block head %}
 {% endblock head %}
 
 {% block content %}
+<span typeof="Book">
     <h2>
         Reviews for <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+        <span hidden property="name">{{ book.title }}</span>
     </h2>
 
     <!--Create a new review button-->
@@ -18,11 +20,23 @@
         Create a new review
     </a>
 
-    <p>
-        <h3 name="average_rating">Average Rating: {{ book.averageRating|stringformat:".1f" }}</h3> <span class="rateyo-read-only mb-3" data-rateyo-rating="{{ book.averageRating }}"></span>
-    </p>
-    
-    {% for review in reviews %}
-        {% include 'reviews/review_entry.html' %}
-    {% endfor %}
+    <span rel="aggregateRating">
+        <div class="my-4" typeof="AggregateRating">
+            <h3 name="average_rating">Average Rating:
+                <span property="ratingValue">{{ book.averageRating|stringformat:".1f" }}</span>
+                from <span property="reviewCount">{{ book.reviews.count }}</span>
+                review{{ book.reviews.count|pluralize}}
+            </h3>
+            <span class="rateyo-read-only mb-3" data-rateyo-rating="{{ book.averageRating }}"></span>
+        </div>
+    </span>
+
+    <span rel="review">
+        {% for review in reviews %}
+        <div typeof="Review">
+            {% include 'reviews/review_entry.html' %}
+        </div>
+        {% endfor %}
+    </span>
+</span>
 {% endblock content %}
