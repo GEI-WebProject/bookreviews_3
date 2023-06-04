@@ -2,25 +2,30 @@
 {% load static %}
 
 {% block title %}
+Results for "{{ query }}""
 {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock head %}
 
-{% block content %}    
-    <!-- List of books -->
-    <div class="recommended-books">
-        <p><h2>
-            {% if query %}
-                Results for "{{ query }}"
-            {% endif %}
-        </h2></p>
-        {% for book in page_obj %}
-            {% include 'books/book_entry.html' with detailed=False %}
-        {% empty %}
-            <p>No books found.</p>
-        {% endfor %}
+{% block content %}
+<!-- List of books -->
+<div class="recommended-books">
+    <p>
+    <h2>
+        {% if query %}
+        Results for "{{ query }}"
+        {% endif %}
+    </h2>
+    </p>
+    {% for book in page_obj %}
+    <div typeof="Book">
+        {% include 'books/book_entry.html' with detailed=False %}
     </div>
+    {% empty %}
+    <p>No books found.</p>
+    {% endfor %}
+</div>
 
 {% endblock content %}
