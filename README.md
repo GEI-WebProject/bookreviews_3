@@ -1,5 +1,5 @@
 # bookreviews
-Deliverable 2 report file: Ariza_Buturuga_Chen_Rodriguez_Yang - Deliverable 2.pdf
+Deliverable 3 report file: Ariza_Buturuga_Chen_Rodriguez_Yang-Deliverable_3.pdf
 
 Grading: Equally between all members of the group.
 
