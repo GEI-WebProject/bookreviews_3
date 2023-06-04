@@ -2,15 +2,17 @@
 {% load static %}
 
 {% block title %}
-    {{ review.title }}
+{{ review.title }}
 {% endblock title %}
 
 {% block head %}
 {% endblock head %}
 
 {% block content %}
+<span rel="review">
     <h2>Review for <a href="{% url 'book_detail' review.book.id %}">{{ review.book.title }}</a></h2>
-    <div>
-    {% include 'reviews/review_entry.html' %}
+    <div typeof="Review">
+        {% include 'reviews/review_entry.html' %}
     </div>
+</span>
 {% endblock content %}
