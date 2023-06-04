@@ -1,35 +1,44 @@
-{% load static %}
 <div style="display: flex; flex-direction: column;">
     <div class="book-entry">
         {% if detailed %}
-            <img src="{{ author.picture }}" class="book-cover">
+        <img src="{{ author.picture }}" class="book-cover" alt="Photo of {{ author.name }}">
         {% else %}
-            <a href="{% url 'author_detail' author.id %}">
-                <img src="{{ author.picture }}" class="book-cover">
-            </a>
+        <a href="{% url 'author_detail' author.id %}">
+            <img src="{{ author.picture }}" class="book-cover" alt="Photo of {{ author.name }}">
+        </a>
         {% endif %}
         <div class="book-details">
             <div class="book-title">
                 <p><a href="{% url 'author_detail' author.id %}">{{ author.name }}</a></p>
+                <span hidden property="name">{{ author.name }}</span>
             </div>
             <div class="book-properties">
-                <p><b>Birth date: </b>: {{ author.birth_date }}</p>
+                <p><b>Birth date: </b>:
+                    <span property="birthDate">
+                        {{ author.birth_date }}
+                    </span>
+                </p>
                 <p><a href="{% url 'author_books' author.id %}">Books by {{ author.name }}</a></p>
             </div>
             <div class="book-synopsis">
                 {% if detailed %}
-                    {% autoescape off %}
-                        <p>{{ author.bio|linebreaksbr }}</p>
-                    {% endautoescape %}
+                {% autoescape off %}
+                <p property="description">
+                    {{ author.bio|linebreaksbr }}
+                </p>
+                {% endautoescape %}
                 {% else %}
-                    {% autoescape off %}
-                        <p>{{ author.bio|linebreaksbr|truncatewords:100 }}
-                        <a href="{% url 'author_detail' author.id %}">Read more</a>
-                        </p>
-                    {% endautoescape %}
+                {% autoescape off %}
+                <p>
+                    <span property="description">
+                        {{ author.bio|linebreaksbr|truncatewords:100 }}
+                    </span>
+                    <a href="{% url 'author_detail' author.id %}">Read more</a>
+                </p>
+                {% endautoescape %}
                 {% endif %}
             </div>
-            <div class="clear"></div>   <!-- Clear float -->
+            <div class="clear"></div> <!-- Clear float -->
         </div>
     </div>
 </div>
