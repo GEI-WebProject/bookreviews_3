@@ -5,16 +5,20 @@
 {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock head %}
 
-{% block content %}    
-    <!-- List of books -->
-    <div class="recommended-books">
-        <p><h2>Books</h2></p>
-        {% for book in books %}
-            {% include 'books/book_entry.html' with detailed=False %}
-        {% endfor %}
+{% block content %}
+<!-- List of books -->
+<div class="recommended-books">
+    <p>
+    <h2>Books</h2>
+    </p>
+    {% for book in books %}
+    <div typeof="Book">
+        {% include 'books/book_entry.html' with detailed=False %}
     </div>
+    {% endfor %}
+</div>
 
 {% endblock content %}
